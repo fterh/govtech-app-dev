@@ -12,7 +12,7 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 app.all("/api/register", register);
-app.app("/api/commonstudents", commonstudents);
+app.all("/api/commonstudents", commonstudents);
 
 // Return 404 for everything else.
 app.all(/\/.*/, (req, res) => {
