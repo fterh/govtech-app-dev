@@ -1,5 +1,5 @@
 function post(req, res) {
-  res.status(200).send("It works!");
+  res.status(204).send("It works!");
 }
 
 module.exports = post;
