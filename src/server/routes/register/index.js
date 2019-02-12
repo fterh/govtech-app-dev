@@ -1,7 +1,7 @@
 const config = require("./../../../../config");
 const post = require("./post");
 
-function article(req, res) {
+function register(req, res) {
   switch (req.method) {
     case "POST":
       post(req, res);
@@ -17,4 +17,4 @@ function article(req, res) {
   }
 }
 
-module.exports = article;
+module.exports = register;
