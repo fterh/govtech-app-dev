@@ -21,7 +21,7 @@ app.all("/api/retrievefornotifications", retrievefornotifications);
 // Return 404 for everything else.
 app.all(/\/.*/, (req, res) => {
   res.status(404).send({
-      "message": config.constants.INVALID_REQUEST_MESSAGE
+    message: config.constants.INVALID_REQUEST_MESSAGE
   });
 });
 

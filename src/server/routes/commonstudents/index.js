@@ -12,7 +12,7 @@ function commonstudents(req, res) {
         .status(405)
         .set("Allow", "GET")
         .send({
-            "message": config.constants.INVALID_REQUEST_MESSAGE
+          message: config.constants.INVALID_REQUEST_MESSAGE
         });
   }
 }

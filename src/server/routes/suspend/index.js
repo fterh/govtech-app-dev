@@ -12,7 +12,7 @@ function suspend(req, res) {
         .status(405)
         .set("Allow", "POST")
         .send({
-            "message": config.constants.INVALID_REQUEST_MESSAGE
+          message: config.constants.INVALID_REQUEST_MESSAGE
         });
   }
 }
