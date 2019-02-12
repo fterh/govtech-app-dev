@@ -1,3 +1,4 @@
+const config = require("./../../../../config");
 const post = require("./post");
 
 function article(req, res) {
@@ -11,7 +12,7 @@ function article(req, res) {
         .status(405)
         .set("Allow", "POST")
         .send({
-            "message": "Method not allowed."
+            "message": config.constants.INVALID_REQUEST_MESSAGE
         });
   }
 }

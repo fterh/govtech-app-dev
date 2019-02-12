@@ -15,7 +15,7 @@ app.all("/api/register", register);
 // Return 404 for everything else.
 app.all(/\/.*/, (req, res) => {
   res.status(404).send({
-      "message": "Oops, there's nothing here."
+      "message": config.constants.INVALID_REQUEST_MESSAGE
   });
 });
 

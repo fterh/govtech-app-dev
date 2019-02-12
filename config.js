@@ -12,6 +12,9 @@ const config = {
     },
     server: {
         port: process.env.PORT || 3000
+    },
+    constants: {
+        INVALID_REQUEST_MESSAGE: "Oops, there's nothing here."
     }
 };
 
