@@ -6,10 +6,6 @@ const {
 } = require("./../../../db");
 
 function post(req, res) {
-  if (!req.is("application/json")) {
-    res.status(400).send();
-  }
-
   const payload = req.body;
   const teacher = extractFromObject("teacher", payload);
   const students = extractFromObject("students", payload);
