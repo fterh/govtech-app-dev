@@ -5,10 +5,9 @@ process.env.NODE_ENV = env;
 
 const config = {
     database: {
-        host: process.env.DB_HOST || "localhost",
         name: process.env.DB_NAME ||
-            (env === "development" ? "db_dev" :
-            (env === "test" ? "db_test" : "db_prod"))
+            (env === "development" ? "main.db" :
+            (env === "test" ? "test.db" : "main.db"))
     },
     server: {
         port: process.env.PORT || 3000
