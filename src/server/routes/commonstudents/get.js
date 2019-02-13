@@ -1,5 +1,6 @@
-function post(req, res) {
+function get(req, res) {
+  
   res.status(200).send("It works!");
 }
 
-module.exports = post;
+module.exports = get;
