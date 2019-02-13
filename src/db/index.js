@@ -40,14 +40,27 @@ function readFromTeachersDatabase(teacher) {
 }
 
 /**
+ * Adds a student into the students database.
+ * @param {string} student
+ * @param {boolean} suspendedStatus
+ */
+function writeToStudentsDatabase(student, suspendedStatus) {
+  const suspendedStatusConverted = suspendedStatus ? "1" : "0";
+  const sql = `INSERT INTO students (student_email, suspended_status)
+    VALUES ("${student}", "${suspendedStatusConverted}")`;
+  db.run(sql);
+}
+
+/**
  * Marks `student` as either suspended or not.
  * @param {string} student
  * @param {boolean} suspensionStatus
  */
 function markStudentSuspension(student, suspensionStatus) {
   const suspensionStatusConverted = suspensionStatus ? "1" : "0";
-  const sql = `INSERT INTO students (student_email, suspended_status)
-    VALUES ("${student}", "${suspensionStatusConverted}")`;
+  const sql = `Update students
+    SET suspended_status = "${suspensionStatusConverted}"
+    WHERE student_email = "${student}"`;
   db.run(sql);
 }
 
@@ -72,6 +85,7 @@ function isStudentSuspended(student) {
 module.exports = {
   writeToTeachersDatabase,
   readFromTeachersDatabase,
+  writeToStudentsDatabase,
   markStudentSuspension,
   isStudentSuspended
 };
