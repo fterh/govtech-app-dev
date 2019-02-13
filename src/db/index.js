@@ -7,18 +7,34 @@ const db = new sqlite3.Database(config.database.name, err => {
   console.log(`Connected to ${config.database.name}`);
 });
 
+/**
+ * Writes `teacher` and `student` to the `teachers` database.
+ * @param {string} teacher 
+ * @param {string} student 
+ */
 function writeToTeachersDatabase(teacher, student) {
   const sql = `INSERT INTO teachers (teacher_email, student_email) \
     VALUES ("${teacher}", "${student}")`;
   db.run(sql);
 }
 
+/**
+ * Returns a Promise that resolves to an array of students associated 
+ * with `teacher` in the `teachers` database.
+ * @param {string} teacher 
+ */
 function readFromTeachersDatabase(teacher) {
   const sql = `SELECT * FROM teachers WHERE teacher_email = "${teacher}"`;
   return new Promise((resolve, reject) => {
     db.all(sql, (err, rows) => {
       if (err) reject(err);
-      resolve(rows);
+
+      let students = [];
+      rows.forEach(row => {
+        students.push(row.student_email);
+      });
+      
+      resolve(students);
     });
   });
 }
