@@ -13,6 +13,8 @@ function helper(teacher) {
 
 function get(req, res) {
   const teachers = req.query.teacher; // `teachers` could be a string or array
+  console.log(teachers);
+  console.log(typeof teachers);
 
   switch (typeof teachers) {
     case "string": {
@@ -34,7 +36,6 @@ function get(req, res) {
 
     case "object": {
       // Multiple `teachers` are provided
-      const allStudents = [];
       const promises = [];
 
       teachers.forEach(teacher => {
@@ -42,15 +43,29 @@ function get(req, res) {
       });
 
       Promise.all(promises)
-        .then(studentsArr => {
-          studentsArr.forEach(students => {
+        .then(arrOfStudents => {
+          const studentCount = {};
+
+          arrOfStudents.forEach(students => {
             students.forEach(student => {
-              allStudents.push(student);
+              if (!(student in studentCount)) {
+                studentCount[student] = 0;
+              }
+
+              studentCount[student] += 1;
             });
           });
 
+          const commonStudents = [];
+
+          Object.keys(studentCount).forEach(student => {
+            if (studentCount[student] === promises.length) {
+              commonStudents.push(student);
+            }
+          });
+
           res.status(200).send({
-            students: allStudents
+            students: commonStudents
           });
         })
         .catch(e => {
