@@ -13,31 +13,7 @@ afterEach(() => {
   wipeTable(config.database.table.students);
 });
 
-it("should register 0 students as a string", done => {
-  request(app)
-    .post("/api/register")
-    .send({
-      teacher: "foo",
-      student: ""
-    })
-    .expect(204)
-    .end(err => {
-      if (err) {
-        throw err;
-      }
-
-      readFromTeachersDatabase("foo")
-        .then(students => {
-          expect(students).toEqual([]);
-          done();
-        })
-        .catch(e => {
-          throw e;
-        });
-    });
-});
-
-it("should register 0 students in an array", done => {
+it("should register 0 students", done => {
   request(app)
     .post("/api/register")
     .send({
@@ -61,31 +37,7 @@ it("should register 0 students in an array", done => {
     });
 });
 
-it("should register 1 student as a string", done => {
-  request(app)
-    .post("/api/register")
-    .send({
-      teacher: "foo",
-      student: "student1"
-    })
-    .expect(204)
-    .end(err => {
-      if (err) {
-        throw err;
-      }
-
-      readFromTeachersDatabase("foo")
-        .then(students => {
-          expect(students).toEqual(["student1"]);
-          done();
-        })
-        .catch(e => {
-          throw e;
-        });
-    });
-});
-
-it("should register 1 student in an array", done => {
+it("should register 1 student", done => {
   request(app)
     .post("/api/register")
     .send({
