@@ -66,6 +66,7 @@ function markStudentSuspension(student, suspensionStatus) {
 
 /**
  * Returns a Promise that resolves to a boolean whether `student` is suspended.
+ * Rejects if `student` does not exist.
  * @param {*} student
  */
 function isStudentSuspended(student) {
@@ -73,6 +74,10 @@ function isStudentSuspended(student) {
   return new Promise((resolve, reject) => {
     db.get(sql, (err, result) => {
       if (err) reject(err);
+      if (!result) {
+        reject("Student does not exist");
+        return;
+      }
       if (result.suspended_status === 0) {
         resolve(false);
       } else {
