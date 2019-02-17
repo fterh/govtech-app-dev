@@ -19,14 +19,6 @@ function post(req, res) {
     });
     return;
   }
-  try {
-    
-  } catch {
-    res.status(500).send({
-      message: 'You must provide a "notification" property'
-    });
-    return;
-  }
 
   const mentionedStudents = getMentionedStudents(notification);
 
