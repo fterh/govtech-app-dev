@@ -110,3 +110,35 @@ it("should not register duplicate students", done => {
         });
     });
 });
+
+it("should not register students who are already registered", done => {
+  request(app)
+    .post("/api/register")
+    .send({
+      teacher: "foo",
+      students: ["student1"]
+    })
+    .then(() => {
+      request(app)
+        .post("/api/register")
+        .send({
+          teacher: "foo",
+          students: ["student1"]
+        })
+        .expect(204)
+        .end(err => {
+          if (err) {
+            throw err;
+          }
+
+          readFromTeachersDatabase("foo")
+            .then(students => {
+              expect(students).toEqual(["student1"]);
+              done();
+            })
+            .catch(e => {
+              throw e;
+            });
+        });
+    });
+});
