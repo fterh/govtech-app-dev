@@ -27,7 +27,7 @@ it("should suspend an existing student", done => {
           student: "bar"
         })
         .expect(204)
-        .end((err, res) => {
+        .end(err => {
           if (err) {
             throw err;
           }

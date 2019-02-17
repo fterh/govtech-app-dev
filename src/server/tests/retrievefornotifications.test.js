@@ -1,7 +1,7 @@
 const request = require("supertest");
 const config = require("./../../../config");
 const { app } = require("./../index");
-const { wipeTable, isStudentSuspended } = require("./../../db");
+const { wipeTable } = require("./../../db");
 
 beforeEach(() => {
   wipeTable(config.database.table.teachers);

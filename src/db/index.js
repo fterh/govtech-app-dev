@@ -75,7 +75,7 @@ function isStudentSuspended(student) {
     db.get(sql, (err, result) => {
       if (err) reject(err);
       if (!result) {
-        reject("Student does not exist");
+        reject(new Error("Student does not exist"));
         return;
       }
       if (result.suspended_status === 0) {

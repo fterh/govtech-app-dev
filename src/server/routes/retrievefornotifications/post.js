@@ -38,31 +38,31 @@ function post(req, res) {
       const studentStatuses = {}; // Dictionary mapping student to suspension status
       const promises = [];
       students.forEach(student => {
-        let promise = isStudentSuspended(student)
-          .then(suspended => {
-            studentStatuses[student] = suspended;
-          });
+        const promise = isStudentSuspended(student).then(suspended => {
+          studentStatuses[student] = suspended;
+        });
         promises.push(promise);
       });
 
-      Promise.all(promises).then(() => {
-        const recipients = [];
-        Object.entries(studentStatuses).forEach(studentStatus => {
-          if (!studentStatus[1]) {
-            // Not suspended
-            recipients.push(studentStatus[0]);
-          }
-        });
+      Promise.all(promises)
+        .then(() => {
+          const recipients = [];
+          Object.entries(studentStatuses).forEach(studentStatus => {
+            if (!studentStatus[1]) {
+              // Not suspended
+              recipients.push(studentStatus[0]);
+            }
+          });
 
-        res.status(200).send({
-          recipients
+          res.status(200).send({
+            recipients
+          });
+        })
+        .catch(() => {
+          res.status(400).send({
+            message: "At least one of the mentioned students do not exist"
+          });
         });
-      }).catch(e => {
-        res.status(400).send({
-          message: "At least one of the mentioned students do not exist"
-        });
-        return;
-      });
     })
     .catch(e => {
       console.error(e);
