@@ -38,11 +38,11 @@ function post(req, res) {
       const studentStatuses = {}; // Dictionary mapping student to suspension status
       const promises = [];
       students.forEach(student => {
-        promises.push(
-          isStudentSuspended(student).then(suspended => {
+        let promise = isStudentSuspended(student)
+          .then(suspended => {
             studentStatuses[student] = suspended;
-          })
-        );
+          });
+        promises.push(promise);
       });
 
       Promise.all(promises).then(() => {
@@ -57,6 +57,11 @@ function post(req, res) {
         res.status(200).send({
           recipients
         });
+      }).catch(e => {
+        res.status(400).send({
+          message: "At least one of the mentioned students do not exist"
+        });
+        return;
       });
     })
     .catch(e => {
