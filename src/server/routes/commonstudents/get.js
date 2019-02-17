@@ -1,5 +1,6 @@
 const config = require("./../../../../config");
 const { readFromTeachersDatabase } = require("./../../../db");
+const extractFromObject = require("./../../../utils/extractFromObject");
 
 /**
  * Returns a Promise that resolves into an array of students associated with
@@ -13,7 +14,15 @@ function helper(teacher) {
 }
 
 function get(req, res) {
-  const teachers = req.query.teacher; // `teachers` could be a string or array
+  let teachers;
+  try {
+    teachers = extractFromObject("teacher", req.query);
+  } catch {
+    res.status(400).send({
+      message: config.constants.INVALID_REQUEST_BODY
+    });
+    return;
+  }
 
   switch (typeof teachers) {
     case "string": {
