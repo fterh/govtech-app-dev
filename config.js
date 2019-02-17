@@ -7,7 +7,11 @@ const config = {
     database: {
         name: process.env.DB_NAME ||
             (env === "development" ? "main.db" :
-            (env === "test" ? "test.db" : "main.db"))
+            (env === "test" ? "test.db" : "main.db")),
+        table: {
+            teachers: "teachers",
+            students: "students"
+        }
     },
     server: {
         port: process.env.PORT || 3000
