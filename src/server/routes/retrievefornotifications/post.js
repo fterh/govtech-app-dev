@@ -37,12 +37,13 @@ function post(req, res) {
         ...mentionedStudents,
         ...registeredStudents
       ]);
-      const allStudents = Array.from(allStudentsSet);
-
+      return Array.from(allStudentsSet);
+    })
+    .then(students => {
       // Remove suspended students
       const studentStatuses = {}; // Dictionary mapping student to suspension status
       const promises = [];
-      allStudents.forEach(student => {
+      students.forEach(student => {
         promises.push(
           isStudentSuspended(student).then(suspended => {
             studentStatuses[student] = suspended;
@@ -50,26 +51,19 @@ function post(req, res) {
         );
       });
 
-      Promise.all(promises)
-        .then(() => {
-          const recipients = [];
-          Object.entries(studentStatuses).forEach(studentStatus => {
-            if (!studentStatus[1]) {
-              // Not suspended
-              recipients.push(studentStatus[0]);
-            }
-          });
-
-          res.status(200).send({
-            recipients
-          });
-        })
-        .catch(e => {
-          console.error(e);
-          res.status(500).send({
-            message: "Something went wrong internally"
-          });
+      Promise.all(promises).then(() => {
+        const recipients = [];
+        Object.entries(studentStatuses).forEach(studentStatus => {
+          if (!studentStatus[1]) {
+            // Not suspended
+            recipients.push(studentStatus[0]);
+          }
         });
+
+        res.status(200).send({
+          recipients
+        });
+      });
     })
     .catch(e => {
       console.error(e);
