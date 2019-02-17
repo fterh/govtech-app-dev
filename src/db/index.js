@@ -82,10 +82,20 @@ function isStudentSuspended(student) {
   });
 }
 
+/**
+ * Deletes all rows in a database table.
+ * @param {string} tableName
+ */
+function wipeTable(tableName) {
+  const sql = `DELETE FROM "${tableName}"`;
+  db.run(sql);
+}
+
 module.exports = {
   writeToTeachersDatabase,
   readFromTeachersDatabase,
   writeToStudentsDatabase,
   markStudentSuspension,
-  isStudentSuspended
+  isStudentSuspended,
+  wipeTable
 };
