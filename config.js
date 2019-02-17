@@ -17,6 +17,7 @@ const config = {
         port: process.env.PORT || 3000
     },
     constants: {
+        INTERNAL_ERROR: "An internal error occurred.",
         INVALID_REQUEST_MESSAGE: "Oops, there's nothing here.",
         INVALID_REQUEST_BODY: "Your request body is invalid."
     }

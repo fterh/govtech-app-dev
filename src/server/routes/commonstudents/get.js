@@ -1,3 +1,4 @@
+const config = require("./../../../../config");
 const { readFromTeachersDatabase } = require("./../../../db");
 
 /**
@@ -25,7 +26,7 @@ function get(req, res) {
         .catch(e => {
           console.error(e);
           res.status(500).send({
-            message: "Something went wrong internally"
+            message: config.constants.INTERNAL_ERROR
           });
         });
 
@@ -69,7 +70,7 @@ function get(req, res) {
         .catch(e => {
           console.error(e);
           res.status(500).send({
-            message: "Something went wrong internally"
+            message: config.constants.INTERNAL_ERROR
           });
         });
 
@@ -78,7 +79,7 @@ function get(req, res) {
 
     default:
       res.status(500).send({
-        message: "Something went wrong internally"
+        message: config.constants.INTERNAL_ERROR
       });
   }
 }

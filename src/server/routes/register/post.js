@@ -45,7 +45,7 @@ function post(req, res) {
     .catch(e => {
       console.error(e);
       res.status(500).send({
-        message: "Something went wrong internally"
+        message: config.constants.INTERNAL_ERROR
       });
     });
 }
