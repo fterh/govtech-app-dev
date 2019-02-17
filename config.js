@@ -13,7 +13,8 @@ const config = {
         port: process.env.PORT || 3000
     },
     constants: {
-        INVALID_REQUEST_MESSAGE: "Oops, there's nothing here."
+        INVALID_REQUEST_MESSAGE: "Oops, there's nothing here.",
+        INVALID_REQUEST_BODY: "Your request body is invalid."
     }
 };
 

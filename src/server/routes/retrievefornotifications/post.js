@@ -1,3 +1,4 @@
+const config = require("./../../../../config");
 const extractFromObject = require("./../../../utils/extractFromObject");
 const getMentionedStudents = require("./../../../utils/getMentionedStudents");
 const {
@@ -11,14 +12,15 @@ function post(req, res) {
   let notification;
   try {
     teacher = extractFromObject("teacher", payload);
+    notification = extractFromObject("notification", payload);
   } catch {
-    res.status(500).send({
-      message: 'You must provide a "teacher" property'
+    res.status(400).send({
+      message: config.constants.INVALID_REQUEST_BODY
     });
     return;
   }
   try {
-    notification = extractFromObject("notification", payload);
+    
   } catch {
     res.status(500).send({
       message: 'You must provide a "notification" property'

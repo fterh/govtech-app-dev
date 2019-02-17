@@ -1,3 +1,4 @@
+const config = require("./../../../../config");
 const extractFromObject = require("./../../../utils/extractFromObject");
 const {
   writeToTeachersDatabase,
@@ -7,8 +8,17 @@ const {
 
 function post(req, res) {
   const payload = req.body;
-  const teacher = extractFromObject("teacher", payload);
-  const students = extractFromObject("students", payload);
+  let teacher;
+  let students;
+  try {
+    teacher = extractFromObject("teacher", payload);
+    students = extractFromObject("students", payload);
+  } catch {
+    res.status(400).send({
+      message: config.constants.INVALID_REQUEST_BODY
+    });
+    return;
+  }
 
   readFromTeachersDatabase(teacher)
     .then(existingStudents => {
