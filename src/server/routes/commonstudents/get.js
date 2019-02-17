@@ -13,8 +13,6 @@ function helper(teacher) {
 
 function get(req, res) {
   const teachers = req.query.teacher; // `teachers` could be a string or array
-  console.log(teachers);
-  console.log(typeof teachers);
 
   switch (typeof teachers) {
     case "string": {
