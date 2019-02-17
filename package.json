@@ -8,7 +8,7 @@
     "flow": "npx flow",
     "jest": "NODE_ENV=test npm run build && npx jest --runInBand dist/",
     "lint": "npx eslint index.js src/**",
-    "start": "NODE_ENV=production node index.js",
+    "start": "NODE_ENV=production npm run build && node index.js",
     "test": "npm run jest && npm run flow && npm run lint",
     "watch": "NODE_ENV=development nodemon --watch src --exec \"npm run build && node index.js\""
   },
